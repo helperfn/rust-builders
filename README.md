@@ -1,4 +1,4 @@
-convert this - learning how builder pattern works in rust
+ learning how builder pattern works in rust
 
 patterns -> different from algorithms
 generally applied across OOP languages (but OOPS is not lang-specific, it is a way of programming)

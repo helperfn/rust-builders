@@ -1,94 +1,53 @@
-# Learning the Builder Pattern in Rust
+convert this - learning how builder pattern works in rust
 
-## Overview
+patterns -> different from algorithms
+generally applied across OOP languages (but OOPS is not lang-specific, it is a way of programming)
 
-- **Design patterns** are reusable solutions to common design problems  
-- They are different from algorithms  
-- Commonly used across OOP-style programming (not language-specific)
+there are 3 types:
+creational patterns : factory method, builder
+structural patterns : ?? dont know the ones listed
+behavourial patterns : iterator
 
----
+OOPS in rust
 
-## Types of Design Patterns
+rust doesnt support classes or inheritance directly. you can use structs, enums to implement them.
 
-### 1. Creational Patterns
-- Factory Method  
-- Builder  
+pros of builders in rust:
+- implement oops concept
+- make it readable and also not require to list every single parameter each type youre.. constructing ? something
 
-### 2. Structural Patterns
-- (Not explored in this context)
+cons:
+- while implemetning, i realised that i needed a lot of defintions
+- it is only necessary for complex tasks
 
-### 3. Behavioral Patterns
-- Iterator  
+implementation:
+based on https://refactoring.guru/design-patterns/builder using house (and car) as example, i decided to make a playerbuilder. this is to show different constraints and how i can apply complex ones using this
 
----
+game concept:
 
-## OOP in Rust
-
-Rust does not support traditional **classes** or **inheritance**.
-
-Instead, similar concepts are achieved using:
-- `struct`
-- `enum`
-- Traits (for shared behavior)
-
----
-
-## Builder Pattern in Rust
-
-### Pros
-
-- Helps model OOP-style construction patterns
-- Improves readability when creating complex objects
-- Avoids passing many parameters in constructors
-- Allows step-by-step object construction
-
-### Cons
-
-- Requires additional boilerplate (structs, methods, validation logic)
-- Not necessary for simple data structures
-- Best suited for complex object creation with constraints
-
----
-
-## Implementation Approach
-
-Based on:  
-https://refactoring.guru/design-patterns/builder
-
-Instead of typical examples (house/car), this implementation uses a **PlayerBuilder** to demonstrate:
-- Validation rules
-- Conditional constraints
-- Derived attributes
-
----
 
 ## Game Concept
 
-A player can belong to one of the following classes:
-- Warrior  
-- Mage  
-- Rogue  
-- Healer  
+A player can be a warrior, mage, rogue, or healer.  
 
-Each class determines base stats:
-- Health  
-- Strength  
-- Agility  
-- Intelligence  
+Qualities like health, strength, agility, and intelligence determine abilities.  
 
-Additional attributes:
-- Weapon (optional, class-dependent)
-- Armor (optional, class-dependent)
+Weapon and armor determine physical capabilities and are optional.
 
 ---
 
-## Base Stats by Class
+## Base Stats
 
-| Class   | Strength | Agility | Intelligence | Health |
-|--------|----------|---------|--------------|--------|
+| Class   | Base Strength | Base Agility | Base Intelligence | Base Health |
+
+|--------|---------------|--------------|-------------------|------------|
+
 | Warrior | 15 | 8  | 3  | 120 |
+
 | Mage    | 3  | 8  | 15 | 80  |
+
 | Rogue   | 10 | 14 | 6  | 100 |
+
 | Healer  | 5  | 10 | 14 | 90  |
 
 ---
@@ -96,10 +55,15 @@ Additional attributes:
 ## Weapon Rules
 
 | Class   | Allowed Weapons | Notes |
+
 |--------|-----------------|-------|
+
 | Warrior | Sword, Axe      | Should have a weapon |
+
 | Mage    | Staff           | Optional |
+
 | Rogue   | Bow, Dagger     | Optional |
+
 | Healer  | None            | Cannot equip weapon |
 
 ---
@@ -107,42 +71,41 @@ Additional attributes:
 ## Armor Rules
 
 | Class   | Allowed Armor | Notes |
+
 |--------|---------------|-------|
+
 | Warrior | Light, Heavy  | Should have armor |
+
 | Mage    | None          | Cannot equip armor |
+
 | Rogue   | Light, Medium | Optional |
+
 | Healer  | Light, Medium | Should have armor |
 
 ---
 
 ## Attribute Rules
 
-- **Name** → Required  
-- **Class** → Required  
+| Attribute | Rule |
 
-- **Weapon**
-  - Optional
-  - Must follow class constraints  
+|----------|------|
 
-- **Armor**
-  - Optional
-  - Must follow class constraints  
+| Strength | Default from class, can override |
 
-- **Stats (Strength, Agility, Intelligence)**
-  - Default from class
-  - Can be overridden  
+| Agility | Default from class, can override |
 
-- **Health**
-  - Always derived from class
-  - Cannot be overridden  
+| Intelligence | Default from class, can override |
 
----
+| Health | Always from class (no override) |
 
-## Key Idea
+| Name | Required |
 
-The **Builder Pattern** is useful here because:
+| Class | Required |
 
-- Object creation involves multiple optional and required fields
-- Several constraints must be validated
-- Some values are derived (e.g., health)
-- It keeps construction logic clean and readable
+| Weapon | Optional (validated if present) |
+
+| Armor | Optional (validated if present) |
+
+| Stats | Optional overrides |
+
+| Health (final) | Derived only |

@@ -3,13 +3,16 @@
 patterns -> different from algorithms
 generally applied across OOP languages (but OOPS is not lang-specific, it is a way of programming)
 
-there are 3 types:
+---
+### there are 3 types:
+
 creational patterns : factory method, builder
 
 structural patterns : ?? dont know the ones listed
 
 behavourial patterns : iterator
 
+---
 OOPS in rust
 
 rust doesnt support classes or inheritance directly. you can use structs, enums to implement them.

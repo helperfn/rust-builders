@@ -5,7 +5,9 @@ generally applied across OOP languages (but OOPS is not lang-specific, it is a w
 
 there are 3 types:
 creational patterns : factory method, builder
+
 structural patterns : ?? dont know the ones listed
+
 behavourial patterns : iterator
 
 OOPS in rust
